@@ -2,6 +2,9 @@
 tiny/tiny
 tiny/cgi-bin/adder
 proxy
+echo/echoclient
+echo/echoserveri
+hostinfo/hostinfo
 
 # MacOS
 .DS_Store
