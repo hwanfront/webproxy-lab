@@ -11,6 +11,8 @@ hostinfo/hostinfo
 .AppleDouble
 .LSOverride
 ._*
+.proxy
+.noproxy
 
 # Prerequisites
 *.d

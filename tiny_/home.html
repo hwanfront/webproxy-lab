@@ -1,0 +1,50 @@
+<html>
+<head><title>test</title></head>
+<body> 
+<img align="middle" src="godzilla.gif">
+Dave O'Hallaron
+<video controls>
+  <source src="sample_640x360.mpg" type="video/mpeg">
+</video>
+<form action="/cgi-bin/adder" method="GET">
+  <input type="number" name="a">
+  <input type="number" name="b">
+  <input type="submit">
+</form>
+<div id="res"></div>
+<hr>
+<div id="head"></div>
+<script>
+  document.querySelector('form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    window.location.href = window.location.href + e.target.getAttribute("action").slice(1) + "?" + e.target.children.a.value + "&" + e.target.children.b.value;
+    // 브라우저에 출력
+    // var xhr = new XMLHttpRequest();
+    // xhr.open("GET", window.location.href + e.target.getAttribute("action").slice(1) + "?" + e.target.children.a.value + "&" + e.target.children.b.value, true);
+    // xhr.onreadystatechange = function() {
+    //   if (xhr.readyState === 4) {
+    //     if (xhr.status === 200) {
+    //       document.querySelector("#res").innerHTML = xhr.responseText;
+    //     } else {
+    //       console.log(xhr.responseText);
+    //     }
+    //   }
+    // };
+    // xhr.send();
+  })
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("HEAD", window.location.href, true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        document.querySelector('#head').innerHTML = `<p>METHOD: HEAD</p><p>${xhr.getResponseHeader('connection')}</p><p>${xhr.getResponseHeader('content-length')}</p><p>${xhr.getResponseHeader('Content-Type')}</p><p>${xhr.getResponseHeader('server')}</p>`;
+      } else {
+        console.log(xhr.responseText);
+      }
+    }
+  };
+  xhr.send();
+</script>
+</body>
+</html>

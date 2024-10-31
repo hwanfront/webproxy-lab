@@ -47,3 +47,5 @@ nop-server.py
 tiny
     Tiny Web server from the CS:APP text
 
+
+curl --max-time 5 --output godzilla.gif "http://localhost:4500/godzilla.gif" "http://localhost:4501"

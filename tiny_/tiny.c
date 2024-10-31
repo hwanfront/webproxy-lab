@@ -37,7 +37,6 @@ int main(int argc, char **argv) {
                     &clientlen);  // line:netp:tiny:accept
     Getnameinfo((SA *)&clientaddr, clientlen, hostname, MAXLINE, port, MAXLINE,
                 0);
-
     printf("# Accepted connection from (%s, %s)\n", hostname, port);
     doit(connfd);   // line:netp:tiny:doit
     Close(connfd);  // line:netp:tiny:close
@@ -146,7 +145,6 @@ int parse_uri(char *uri, char *filename, char *cgiargs) {
     }
     return 1;
   } 
-  // /cgi-bin/adder?123&456
   ptr = index(uri, '?');
   if(ptr) {
     strcpy(cgiargs, ptr + 1);
@@ -164,23 +162,27 @@ void serve_header(int fd, char *filename, int filesize, char *version) {
 
   get_filetype(filename, filetype);
   sprintf(buf, "%s 200 OK\r\n", version);
-  Rio_writen(fd, buf, strlen(buf));
   sprintf(buf, "%sServer: Tiny Web Server\r\n", buf);
-  Rio_writen(fd, buf, strlen(buf));
   sprintf(buf, "%sConnection: close\r\n", buf);
-  Rio_writen(fd, buf, strlen(buf));
   sprintf(buf, "%sContent-length: %d\r\n", buf, filesize);
-  Rio_writen(fd, buf, strlen(buf));
   sprintf(buf, "%sContent-type: %s\r\n\r\n", buf, filetype);
+  Rio_writen(fd, buf, strlen(buf));
+  sprintf(buf, "\r\n");
   Rio_writen(fd, buf, strlen(buf));
 }
 
 void serve_static(int fd, char *filename, int filesize, char *version) {
   int srcfd;
   char *srcp, filetype[MAXLINE], buf[MAXBUF];
-  
-  serve_header(fd, filename, filesize, version);
 
+  get_filetype(filename, filetype);
+  sprintf(buf, "%s 200 OK\r\n", version);
+  sprintf(buf, "%sServer: Tiny Web Server\r\n", buf);
+  sprintf(buf, "%sConnection: close\r\n", buf);
+  sprintf(buf, "%sContent-length: %d\r\n", buf, filesize);
+  sprintf(buf, "%sContent-type: %s\r\n\r\n", buf, filetype);
+  Rio_writen(fd, buf, strlen(buf));
+  printf("Response headers:\n");
   printf("%s", buf);
 
   srcfd = Open(filename, O_RDONLY, 0);

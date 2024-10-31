@@ -36,3 +36,6 @@ Files:
   cgi-bin/adder.c	CGI program that adds two numbers
   cgi-bin/Makefile	Makefile for adder.c
 
+https://remarkablemark.org/blog/2016/06/06/kill-used-port/
+lsof -ti :$PORT
+kill -15 

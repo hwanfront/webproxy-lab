@@ -2,6 +2,12 @@
   "files.associations": {
     "*.py": "python",
     "string.h": "c",
-    "csapp.h": "c"
+    "csapp.h": "c",
+    "semaphore.h": "c",
+    "inet.h": "c",
+    "unistd.h": "c",
+    "stdio.h": "c",
+    "__mutex_base": "c",
+    "mutex": "c"
   }
 }
